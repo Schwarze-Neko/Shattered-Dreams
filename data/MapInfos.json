@@ -1,0 +1,7 @@
+[
+null,
+{"id":1,"expanded":false,"name":"MAP001","order":1,"parentId":0,"scrollX":540.6666666666666,"scrollY":321.3333333333333},
+{"id":2,"expanded":false,"name":"Outskirts","order":2,"parentId":0,"scrollX":3276,"scrollY":1816},
+{"id":3,"expanded":true,"name":"Living Quarters","order":3,"parentId":0,"scrollX":3276,"scrollY":1816},
+{"id":4,"expanded":false,"name":"Slums","order":4,"parentId":0,"scrollX":3276,"scrollY":1816}
+]
