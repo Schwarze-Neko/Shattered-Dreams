@@ -1,7 +1,7 @@
 [
 null,
 {"id":1,"expanded":false,"name":"Living Quarters 2","order":17,"parentId":0,"scrollX":2162.6666666666665,"scrollY":1210.6666666666667},
-{"id":2,"expanded":false,"name":"Outskirts","order":1,"parentId":0,"scrollX":2808,"scrollY":1556.5714285714284},
+{"id":2,"expanded":false,"name":"Outskirts","order":1,"parentId":0,"scrollX":3417,"scrollY":1858.5},
 {"id":3,"expanded":true,"name":"Living Quarters","order":2,"parentId":0,"scrollX":2780.5714285714284,"scrollY":1803.4285714285713},
 {"id":4,"expanded":true,"name":"Slums","order":8,"parentId":0,"scrollX":2218,"scrollY":1988},
 {"id":5,"expanded":true,"name":"Church District","order":14,"parentId":0,"scrollX":2433,"scrollY":1362},
