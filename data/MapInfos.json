@@ -2,7 +2,7 @@
 null,
 {"id":1,"expanded":false,"name":"Living Quarters 2","order":17,"parentId":0,"scrollX":2163,"scrollY":1210.5},
 {"id":2,"expanded":false,"name":"Outskirts","order":1,"parentId":0,"scrollX":3037.3333333333335,"scrollY":1652},
-{"id":3,"expanded":true,"name":"Living Quarters","order":2,"parentId":0,"scrollX":884.7272727272727,"scrollY":1056},
+{"id":3,"expanded":true,"name":"Living Quarters","order":2,"parentId":0,"scrollX":1066.909090909091,"scrollY":1320},
 {"id":4,"expanded":true,"name":"Slums","order":8,"parentId":0,"scrollX":2218,"scrollY":1988},
 {"id":5,"expanded":true,"name":"Church District","order":14,"parentId":0,"scrollX":2433,"scrollY":1362},
 {"id":6,"expanded":false,"name":"CharacterSelect","order":21,"parentId":0,"scrollX":1491,"scrollY":1839},
