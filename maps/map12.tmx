@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="14" height="20" tilewidth="48" tileheight="48" infinite="0" nextlayerid="10" nextobjectid="9">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="14" height="20" tilewidth="48" tileheight="48" nextobjectid="9">
  <tileset firstgid="1" name="HousesShatteredDreams" tilewidth="48" tileheight="48" tilecount="140" columns="14">
   <image source="../img/tilesets/HousesShatteredDreams.png" width="672" height="480"/>
  </tileset>
@@ -9,7 +9,7 @@
  <tileset firstgid="273" name="TileCollision_48x48" tilewidth="48" tileheight="48" tilecount="20" columns="5">
   <image source="../img/tilesets/TileCollision_48x48.png" width="240" height="192"/>
  </tileset>
- <layer id="2" name="Floor" width="14" height="20">
+ <layer name="Floor" width="14" height="20">
   <properties>
    <property name="zIndex" value="1"/>
   </properties>
@@ -36,7 +36,7 @@
 0,0,29,30,31,29,30,31,29,30,31,29,0,0
 </data>
  </layer>
- <layer id="3" name="Walls" width="14" height="20">
+ <layer name="Walls" width="14" height="20">
   <properties>
    <property name="zIndex" value="3"/>
   </properties>
@@ -63,7 +63,7 @@
 127,128,129,129,129,129,129,129,129,129,130,131,132,133
 </data>
  </layer>
- <layer id="4" name="Walls2" width="14" height="20">
+ <layer name="Walls2" width="14" height="20">
   <properties>
    <property name="zIndex" value="3"/>
   </properties>
@@ -90,7 +90,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="5" name="Decorations" width="14" height="20">
+ <layer name="Decorations" width="14" height="20">
   <properties>
    <property name="zIndex" value="3"/>
   </properties>
@@ -117,7 +117,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="6" name="trickery" width="14" height="20">
+ <layer name="trickery" width="14" height="20">
   <properties>
    <property name="zIndex" value="5"/>
   </properties>
@@ -144,7 +144,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="9" name="Collisions" width="14" height="20">
+ <layer name="Collisions" width="14" height="20" opacity="0.53">
   <properties>
    <property name="collision" value="full"/>
   </properties>
@@ -171,7 +171,7 @@
 273,273,273,273,273,273,273,273,273,273,273,273,273,273
 </data>
  </layer>
- <objectgroup id="8" name="Objektebene 1">
+ <objectgroup name="Objektebene 1">
   <object id="4" x="289.667" y="817.333" width="48" height="48">
    <properties>
     <property name="eventId" value="001"/>
