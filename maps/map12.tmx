@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="14" height="20" tilewidth="48" tileheight="48" nextobjectid="9">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="14" height="20" tilewidth="48" tileheight="48" nextobjectid="13">
  <tileset firstgid="1" name="HousesShatteredDreams" tilewidth="48" tileheight="48" tilecount="140" columns="14">
   <image source="../img/tilesets/HousesShatteredDreams.png" width="672" height="480"/>
  </tileset>
@@ -172,12 +172,12 @@
 </data>
  </layer>
  <objectgroup name="Objektebene 1">
-  <object id="4" x="289.667" y="817.333" width="48" height="48">
+  <object id="9" x="289.333" y="907.33" width="48" height="48">
    <properties>
     <property name="eventId" value="001"/>
    </properties>
   </object>
-  <object id="8" x="340" y="817.333" width="48" height="48">
+  <object id="12" x="339" y="908.33" width="48" height="48">
    <properties>
     <property name="eventId" value="001"/>
    </properties>
