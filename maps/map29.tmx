@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="35" height="29" tilewidth="48" tileheight="48" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="35" height="29" tilewidth="48" tileheight="48" nextobjectid="8">
  <tileset firstgid="1" name="TileCollision_48x48" tilewidth="48" tileheight="48" tilecount="20" columns="5">
   <image source="../img/tilesets/TileCollision_48x48.png" width="240" height="192"/>
  </tileset>
@@ -150,4 +150,36 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1
 </data>
  </layer>
+ <objectgroup name="Events">
+  <object id="1" x="288" y="0" width="48" height="48">
+   <properties>
+    <property name="eventId" value="001"/>
+   </properties>
+  </object>
+  <object id="3" x="336.5" y="2.5" width="48" height="48">
+   <properties>
+    <property name="eventId" value="002"/>
+   </properties>
+  </object>
+  <object id="4" x="386.5" y="2" width="48" height="48">
+   <properties>
+    <property name="eventId" value="003"/>
+   </properties>
+  </object>
+  <object id="5" x="433.5" y="1.5" width="48" height="48">
+   <properties>
+    <property name="eventId" value="004"/>
+   </properties>
+  </object>
+  <object id="6" x="480" y="1" width="48" height="48">
+   <properties>
+    <property name="eventId" value="005"/>
+   </properties>
+  </object>
+  <object id="7" x="528.5" y="0.5" width="48" height="48">
+   <properties>
+    <property name="eventId" value="006"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
