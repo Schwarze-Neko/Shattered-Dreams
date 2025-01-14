@@ -74,6 +74,25 @@
                  "width":48,
                  "x":1150,
                  "y":337
+                }, 
+                {
+                 "height":48,
+                 "id":5,
+                 "name":"",
+                 "properties":
+                    {
+                     "eventId":"001"
+                    },
+                 "propertytypes":
+                    {
+                     "eventId":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":287.818181818182,
+                 "y":98.7272727272727
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -81,7 +100,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":5,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
