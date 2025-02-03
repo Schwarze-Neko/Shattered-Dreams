@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="40" tilewidth="48" tileheight="48" nextobjectid="12">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="40" tilewidth="48" tileheight="48" nextobjectid="18">
  <tileset firstgid="1" name="Sewer" tilewidth="48" tileheight="48" tilecount="100" columns="10">
   <image source="../img/tilesets/Sewer.png" width="480" height="480"/>
   <tile id="42" probability="0.1"/>
@@ -131,6 +131,9 @@
 </data>
  </layer>
  <layer name="Grass" width="50" height="40">
+  <properties>
+   <property name="zIndex" value="1"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -175,6 +178,9 @@
 </data>
  </layer>
  <layer name="Decoration" width="50" height="40">
+  <properties>
+   <property name="zIndex" value="3"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -219,6 +225,9 @@
 </data>
  </layer>
  <layer name="Kachelebene 7" width="50" height="40">
+  <properties>
+   <property name="zIndex" value="3"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -263,6 +272,9 @@
 </data>
  </layer>
  <layer name="Houses" width="50" height="40">
+  <properties>
+   <property name="zIndex" value="3"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,423,424,424,424,424,424,424,424,424,424,424,424,424,424,424,424,424,424,424,424,425,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,361,362,362,362,362,362,362,362,362,362,362,362,362,362,362,362,362,362,362,362,363,
@@ -307,6 +319,9 @@
 </data>
  </layer>
  <layer name="Doors" width="50" height="40">
+  <properties>
+   <property name="zIndex" value="3"/>
+  </properties>
   <data encoding="csv">
 433,434,434,434,434,434,434,434,434,434,434,434,434,434,434,434,434,434,434,435,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 361,362,362,362,362,362,362,362,362,362,362,362,362,362,362,362,362,362,362,363,0,0,0,0,0,0,0,0,0,352,353,354,0,400,0,0,0,0,400,0,0,0,0,400,0,0,0,400,0,0,
@@ -384,6 +399,26 @@
   <object id="11" x="1066.67" y="5" width="48" height="48">
    <properties>
     <property name="eventId" value="007"/>
+   </properties>
+  </object>
+  <object id="12" x="771" y="1254" width="48" height="48">
+   <properties>
+    <property name="eventId" value="008"/>
+   </properties>
+  </object>
+  <object id="15" x="960.167" y="1258.58" width="48" height="48">
+   <properties>
+    <property name="eventId" value="009"/>
+   </properties>
+  </object>
+  <object id="16" x="1152.92" y="1257.08" width="48" height="48">
+   <properties>
+    <property name="eventId" value="10"/>
+   </properties>
+  </object>
+  <object id="17" x="1344.92" y="1259.5" width="48" height="48">
+   <properties>
+    <property name="eventId" value="11"/>
    </properties>
   </object>
  </objectgroup>

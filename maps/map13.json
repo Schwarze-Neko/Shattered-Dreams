@@ -36,6 +36,14 @@
          "height":40,
          "name":"Grass",
          "opacity":1,
+         "properties":
+            {
+             "zIndex":"1"
+            },
+         "propertytypes":
+            {
+             "zIndex":"string"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":50,
@@ -47,6 +55,14 @@
          "height":40,
          "name":"Decoration",
          "opacity":1,
+         "properties":
+            {
+             "zIndex":"3"
+            },
+         "propertytypes":
+            {
+             "zIndex":"string"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":50,
@@ -58,6 +74,14 @@
          "height":40,
          "name":"Kachelebene 7",
          "opacity":1,
+         "properties":
+            {
+             "zIndex":"3"
+            },
+         "propertytypes":
+            {
+             "zIndex":"string"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":50,
@@ -69,6 +93,14 @@
          "height":40,
          "name":"Houses",
          "opacity":1,
+         "properties":
+            {
+             "zIndex":"3"
+            },
+         "propertytypes":
+            {
+             "zIndex":"string"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":50,
@@ -80,6 +112,14 @@
          "height":40,
          "name":"Doors",
          "opacity":1,
+         "properties":
+            {
+             "zIndex":"3"
+            },
+         "propertytypes":
+            {
+             "zIndex":"string"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":50,
@@ -165,6 +205,139 @@
                  "width":48,
                  "x":2352,
                  "y":960
+                }, 
+                {
+                 "height":48,
+                 "id":7,
+                 "name":"",
+                 "properties":
+                    {
+                     "eventId":"005"
+                    },
+                 "propertytypes":
+                    {
+                     "eventId":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":1183.33,
+                 "y":6
+                }, 
+                {
+                 "height":48,
+                 "id":9,
+                 "name":"",
+                 "properties":
+                    {
+                     "eventId":"006"
+                    },
+                 "propertytypes":
+                    {
+                     "eventId":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":1127.67,
+                 "y":4.33333
+                }, 
+                {
+                 "height":48,
+                 "id":11,
+                 "name":"",
+                 "properties":
+                    {
+                     "eventId":"007"
+                    },
+                 "propertytypes":
+                    {
+                     "eventId":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":1066.67,
+                 "y":5
+                }, 
+                {
+                 "height":48,
+                 "id":12,
+                 "name":"",
+                 "properties":
+                    {
+                     "eventId":"008"
+                    },
+                 "propertytypes":
+                    {
+                     "eventId":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":771,
+                 "y":1254
+                }, 
+                {
+                 "height":48,
+                 "id":15,
+                 "name":"",
+                 "properties":
+                    {
+                     "eventId":"009"
+                    },
+                 "propertytypes":
+                    {
+                     "eventId":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":960.166666666667,
+                 "y":1258.58333333333
+                }, 
+                {
+                 "height":48,
+                 "id":16,
+                 "name":"",
+                 "properties":
+                    {
+                     "eventId":"10"
+                    },
+                 "propertytypes":
+                    {
+                     "eventId":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":1152.91666666667,
+                 "y":1257.08333333333
+                }, 
+                {
+                 "height":48,
+                 "id":17,
+                 "name":"",
+                 "properties":
+                    {
+                     "eventId":"11"
+                    },
+                 "propertytypes":
+                    {
+                     "eventId":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":1344.91666666667,
+                 "y":1259.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -191,7 +364,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":7,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
