@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="90" height="70" tilewidth="48" tileheight="48" nextobjectid="16">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="90" height="70" tilewidth="48" tileheight="48" nextobjectid="28">
  <tileset firstgid="1" name="Sewer" tilewidth="48" tileheight="48" tilecount="100" columns="10">
   <image source="../img/tilesets/Sewer.png" width="480" height="480"/>
  </tileset>
@@ -557,6 +557,56 @@
   <object id="15" x="434" y="2066" width="48" height="48">
    <properties>
     <property name="eventId" value="14"/>
+   </properties>
+  </object>
+  <object id="16" x="1102.67" y="3311.33" width="48" height="48">
+   <properties>
+    <property name="eventId" value="15"/>
+   </properties>
+  </object>
+  <object id="18" x="1152" y="3312" width="48" height="48">
+   <properties>
+    <property name="eventId" value="16"/>
+   </properties>
+  </object>
+  <object id="19" x="1201.67" y="3312" width="48" height="48">
+   <properties>
+    <property name="eventId" value="17"/>
+   </properties>
+  </object>
+  <object id="20" x="1250.67" y="3313.33" width="48" height="48">
+   <properties>
+    <property name="eventId" value="18"/>
+   </properties>
+  </object>
+  <object id="21" x="1300.67" y="3313.33" width="48" height="48">
+   <properties>
+    <property name="eventId" value="19"/>
+   </properties>
+  </object>
+  <object id="23" x="2685.67" y="3307.67" width="48" height="48">
+   <properties>
+    <property name="eventId" value="20"/>
+   </properties>
+  </object>
+  <object id="24" x="2733.83" y="3308.33" width="48" height="48">
+   <properties>
+    <property name="eventId" value="21"/>
+   </properties>
+  </object>
+  <object id="25" x="2782.5" y="3307.33" width="48" height="48">
+   <properties>
+    <property name="eventId" value="22"/>
+   </properties>
+  </object>
+  <object id="26" x="2833.5" y="3308.33" width="48" height="48">
+   <properties>
+    <property name="eventId" value="23"/>
+   </properties>
+  </object>
+  <object id="27" x="2878.5" y="3308" width="48" height="48">
+   <properties>
+    <property name="eventId" value="24"/>
    </properties>
   </object>
  </objectgroup>

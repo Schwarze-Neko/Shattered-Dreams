@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="43" tilewidth="48" tileheight="48" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="43" tilewidth="48" tileheight="48" nextobjectid="3">
  <tileset firstgid="1" name="TileCollision_48x48" tilewidth="48" tileheight="48" tilecount="20" columns="5">
   <image source="../img/tilesets/TileCollision_48x48.png" width="240" height="192"/>
  </tileset>
@@ -48,7 +48,7 @@
 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,
 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,
 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,
-31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,
+31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,411,
 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,
 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,
 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,
@@ -279,4 +279,11 @@
 0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
 </data>
  </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="1" x="915.333" y="242" width="42" height="43.3333">
+   <properties>
+    <property name="eventId" value="002"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
