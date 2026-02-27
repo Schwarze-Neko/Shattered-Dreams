@@ -19,54 +19,63 @@
 
 ### 1.2 Limb Damage System
 
-**Architecture**: Pure event-driven via game variables and common events. No plugin code.
+**Architecture**: Plugin-driven via `SD_LimbSystem.js` with mirror sync to game variables 1-7 for backward compatibility. Data stored in `$gameSystem._limbData[actorId]`.
+
+**Plugin**: SD_LimbSystem.js (v1.0). Custom, ES5 compatible. Loaded after YEP_BattleEngineCore, before HIME_LargeChoices.
+
+**Core mechanic**: Every physical enemy attack deals hidden limb damage (35% of HP damage) to a targeted limb alongside normal HP damage. Limb HP is invisible to the player — only narrative messages indicate limb condition.
+
+**Per-actor limb data** (stored in `$gameSystem._limbData`):
+- 4 limbs per actor: leftArm, rightArm, leftLeg, rightLeg
+- Each limb: hp (0-100), maxHp, crippled flag, and per-limb statuses
+- Supports all actors dynamically (Knight/Hunter/Priest/future)
+
+**Limb targeting** via skill notetags:
+- `<limbTarget: random>` — default for physical attacks
+- `<limbTarget: arms/legs/leftArm/rightArm/leftLeg/rightLeg/weakest/none>`
+- Magical attacks (`hitType === 2`) default to `none` (no limb damage)
+
+**Limb statuses** (per-limb, not global):
+- **Infected**: timer-based, applies Poison at 5 ticks, kills actor at 10 ticks
+- **Blood Loss**: stackable (max 3), drains actor HP per turn/step
+- **Maimed**: reduces limb maxHp by 20, increases incoming limb damage ×1.5
+- **Malformed**: random modifier (±HP, ±ATK), applied on crit or 1% chance
+
+**Crippled** (State 11): Applied when any limb reaches 0 HP. Permanent. Cascades: auto-applies Infected + Blood Loss. Blocks equipment slot for that limb. Multiple crippled limbs scale ATK/AGI penalties. 4 crippled = knockout.
+
+**Regeneration**: Out-of-combat only. +1 limb HP per 50 steps. Blocked by infection, slowed by blood loss. Cannot restore crippled (destroyed) limbs.
+
+**Enemy body parts** (infrastructure, no content yet):
+- `<bodyPart: head>` on enemy — killing head kills entire troop
+- `<bodyPart: limb>` on enemy — killing limb debuffs remaining troop
+
+**Mirror variables** (backward compatibility):
 
 | Variable | Purpose |
 |----------|---------|
-| 1 — Left Arm HP | Tracks left arm integrity (init: 100) |
-| 2 — Right Arm HP | Tracks right arm integrity (init: 100) |
-| 3 — Left Leg HP | Tracks left leg integrity (init: 100) |
-| 4 — Right Leg HP | Tracks right leg integrity (init: 100) |
-| 5 — Limb HP Counter | Computed: count of limbs with HP > 0 |
-| 6 — Damage Amount | Damage value to apply to a limb |
-| 7 — Target Limb | Which limb to damage (selector) |
+| 1 — Left Arm HP | Mirror: leader's left arm HP |
+| 2 — Right Arm HP | Mirror: leader's right arm HP |
+| 3 — Left Leg HP | Mirror: leader's left leg HP |
+| 4 — Right Leg HP | Mirror: leader's right leg HP |
+| 5 — Limb HP Counter | Mirror: count of functional limbs |
+| 6 — Damage Amount | Temp: last limb damage applied |
+| 7 — Target Limb | Temp: last targeted limb (1-4) |
 
-| Switch | Purpose |
-|--------|---------|
-| 1 — Limb HP Initialized | Gate for initialization; flipped once at game start |
+**Marker states** (UI indicators, logic in plugin):
 
-**Common Event 1 — "Initialize Limb HP"**:
-- Sets Switch 1 ON, sets all 4 limb variables to 100, then sets Switch 1 OFF.
-- Triggered once (Switch 1 condition, trigger: None — must be called explicitly).
+| State | Purpose |
+|-------|---------|
+| 11 — Crippled | Global limb destruction marker (has traits: AGI-20, Hit 50%, DEF 65%) |
+| 14 — Infected | Marker: at least one limb infected |
+| 15 — Blood Loss | Marker: at least one limb bleeding |
+| 16 — Maimed | Marker: at least one limb maimed |
+| 17 — Malformed | Marker: at least one limb malformed |
 
-**Common Event 2 — "Limb Damage Check"**:
-- Resets counter (var 5 = 0).
-- For each of the 4 limb variables: if > 0, increment counter.
-- If counter <= 1: apply State 11 (Crippled) to actor 5.
-- Else: remove State 11 from actor 5.
-- **Limitation**: hardcoded to Actor ID 5 (Knight).
+**Legacy Common Events** (no longer called by plugin):
+- CE 1: "[Legacy] Initialize Limb HP" — preserved for save compatibility
+- CE 2: "[Legacy] Limb Damage Check" — preserved for save compatibility
 
-**State 11 — "Crippled"**:
-- AGI -20 (trait code 33, dataId 0, value -20).
-- Hit Rate 50% (trait code 21, dataId 0, value 0.5).
-- DEF multiplier 65% (trait code 12, dataId 3, value 0.65).
-- Permanent (no auto-removal, persists after battle).
-
-**In-Battle Implementation (Troop Events)**:
-Several troops contain battle event pages that drive the limb system at runtime:
-
-- **Page 1 (condition: Turn 0)**: Calls Common Event 1 to initialize all limb HP to 100.
-- **Page 2 (condition: Turn End)**: Each turn end:
-  1. `Variable 6 = Random(5, 15)` — generate random damage.
-  2. `Variable 7 = Random(1, 4)` — pick random limb.
-  3. Conditional branches: if Var 7 == 1 → Var 1 -= Var 6; if 2 → Var 2 -= Var 6; etc.
-  4. Calls Common Event 2 (Limb Damage Check) to evaluate Crippled state.
-  5. Displays all 4 limb HP values via Show Text message.
-
-**Troops with limb damage**: 1 (Bat*2), 5 (Monster 1), 6 (Monster 2), 7 (Monster 3), 8 (Dummy).
-**Troops WITHOUT limb damage**: 2 (Slime*2), 3 (Orc), 4 (Minotaur).
-
-**Current status**: The system is functional but primitive — damage is random (not tied to actual enemy attacks), there is no player-side limb targeting, and the limb HP display is a text message popup rather than a proper HUD element. Limb damage is per-troop, not a universal mechanic (must be manually added to each troop's battle events). Not all troops have it.
+**Troop events**: All limb damage troop event pages (Turn End) have been removed from Troops 1, 5, 6, 7, 8. Quest logic pages (Turn 0 in Troops 5-7) preserved.
 
 ### 1.3 Rune-Based Magic System
 
@@ -287,7 +296,7 @@ Variables 10-20: unused/unnamed.
 
 ## 7. Plugin Dependency Structure
 
-**IMPORTANT**: Only 15 plugins are registered in `plugins.js` and actually loaded at runtime.
+**IMPORTANT**: Only 16 plugins are registered in `plugins.js` and actually loaded at runtime.
 An additional 38 plugin `.js` files exist in `js/plugins/` but are NOT loaded. The distinction is critical.
 
 ### Active Plugins (loaded in plugins.js, in load order)
@@ -305,9 +314,10 @@ An additional 38 plugin `.js` files exist in `js/plugins/` but are NOT loaded. T
 10. YEP_SkillCore            — skill cost display, formatting
 11. YEP_X_CoreUpdatesOpt     — core engine patches (v1.10-1.62)
 12. YEP_BattleEngineCore     — battle flow control, DTB mode, visual enemy select
-13. HIME_LargeChoices        — extended choice lists (used in character builder)
-14. YED_Tiled                — Tiled Map Editor support (Z-layers: below=1, player=3, above=5)
-15. RuneSkills               — custom rune magic (hooks Scene_Battle, DataManager)
+13. SD_LimbSystem            — limb damage system (hooks executeHpDamage, onTurnEnd, onPlayerWalk, die, equip)
+14. HIME_LargeChoices        — extended choice lists (used in character builder)
+15. YED_Tiled                — Tiled Map Editor support (Z-layers: below=1, player=3, above=5)
+16. RuneSkills               — custom rune magic (hooks Scene_Battle, DataManager)
 ```
 
 ### Unloaded Plugins (files exist in js/plugins/ but NOT in plugins.js)

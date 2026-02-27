@@ -14,13 +14,15 @@ This document records all architectural decisions inferred from the project impl
 
 ---
 
-## D-002: Limb Damage Via Game Variables, Not Plugin
+## D-002: Limb Damage Via SD_LimbSystem.js Plugin (Migrated from Variables)
 
-**Decision**: The limb damage system is implemented entirely through game variables (1-7) and common events (1-2), not through a dedicated plugin.
+**Decision**: The limb damage system is implemented via the `SD_LimbSystem.js` plugin, which stores per-actor limb data in `$gameSystem._limbData[actorId]`. Variables 1-7 remain reserved as **mirror variables** for backward compatibility — they reflect the party leader's limb state and are synced automatically by the plugin.
 
-**Evidence**: Variables 1-4 store limb HP. Common Event 1 initializes them. Common Event 2 checks them and applies/removes the Crippled state.
+**History**: Originally implemented via game variables (1-7) and common events (1-2) with troop battle event pages. Migrated to plugin architecture to support multi-actor limb tracking, per-limb statuses, and universal battle integration.
 
-**Constraint**: Variables 1-7 are permanently reserved for the limb system. Any extension to the limb system must continue using this variable-based approach unless a full plugin replacement is explicitly approved. The Crippled state (ID 11) must not be repurposed. In-battle limb damage is applied via troop battle event pages (Turn End) — not through common events alone. Each troop that should use limb damage must have these battle event pages manually configured.
+**Evidence**: SD_LimbSystem.js hooks `executeHpDamage`, `onTurnEnd`, `onPlayerWalk`, `die`, `isEquipChangeOk`, `extractSaveContents`. Common Events 1-2 renamed to [Legacy] and no longer called. Troop limb damage pages removed from Troops 1, 5-8.
+
+**Constraint**: Variables 1-7 remain permanently reserved for the limb system (mirror sync). The Crippled state (ID 11) must not be repurposed. States 14-17 are reserved for limb status markers (Infected, Blood Loss, Maimed, Malformed). SD_LimbSystem.js must not be modified to depend on RuneSkills.js. Limb damage is now universal — all troops automatically participate via the plugin hook, no manual troop event configuration needed.
 
 ---
 
@@ -154,13 +156,15 @@ This document records all architectural decisions inferred from the project impl
 
 ---
 
-## D-016: Limb Damage Is Per-Troop, Not Universal
+## D-016: Limb Damage Is Universal Via Plugin Hook
 
-**Decision**: Limb damage logic (random damage, random target limb, check, display) is embedded in individual troop battle event pages. It is NOT a global battle mechanic.
+**Decision**: Limb damage is now a global battle mechanic, applied automatically by `SD_LimbSystem.js` through a hook on `Game_Action.prototype.executeHpDamage`. Every physical enemy attack triggers limb damage on the targeted actor. No troop-specific configuration is needed.
 
-**Evidence**: Troops 1, 5, 6, 7, 8 have identical Turn End battle event pages with limb damage logic. Troops 2, 3, 4 do not.
+**History**: Was previously per-troop via copied Turn End battle event pages. Migrated to universal plugin hook.
 
-**Constraint**: Any new troop that should use limb damage must have the Turn End battle event page manually replicated. This is a copy-paste pattern. If the limb system is later refactored into a plugin or YEP_BaseTroopEvents, all existing troop pages must be migrated.
+**Evidence**: SD_LimbSystem.js hooks `executeHpDamage`. All limb damage troop event pages removed from Troops 1, 5-8. Troop quest logic pages (Turn 0 in Troops 5-7) preserved.
+
+**Constraint**: Limb damage applies to ALL battles automatically. To exempt specific enemy skills from limb damage, use the `<limbTarget: none>` notetag on the skill. Magical skills (`hitType === 2`) default to no limb damage.
 
 ---
 
@@ -174,9 +178,29 @@ This document records all architectural decisions inferred from the project impl
 
 ---
 
+## D-021: SD_LimbSystem.js Plugin Architecture
+
+**Decision**: A new standalone plugin `SD_LimbSystem.js` handles all limb damage mechanics. ES5 only, no external dependencies. Loaded after YEP_BattleEngineCore (position 13 in plugins.js).
+
+**Evidence**: Plugin file at `js/plugins/SD_LimbSystem.js`, registered in `plugins.js`.
+
+**Constraint**: Do not modify RuneSkills.js. SD_LimbSystem must remain a single self-contained file. All limb data stored in `$gameSystem._limbData`. States 14-17 are marker states managed by the plugin (no game logic in their traits). Healing items/skills interact with limb system via notetags (`<limbHeal>`, `<limbCureInfection>`, etc.).
+
+---
+
+## D-022: Limb Statuses Are Per-Limb, Not Global MV States
+
+**Decision**: Limb statuses (Infected, Blood Loss, Maimed, Malformed) are stored per-limb in `$gameSystem._limbData[actorId].limbs[limbKey].statuses`, NOT as MV states. MV States 14-17 serve only as UI markers (icons) indicating "at least one limb has this condition."
+
+**Evidence**: SD_LimbSystem.js status engine, States.json states 14-17 with empty traits.
+
+**Constraint**: Do not add game-logic traits to States 14-17. Their only purpose is icon display. All actual effects (damage, timers, drain) are computed by the plugin.
+
+---
+
 ## Anti-Patterns Already Present
 
-1. **Hardcoded actor ID in common events**: Common Event 2 targets Actor 5 specifically. This breaks if Hunter (6) or Priest (7) is the active character.
+1. **~~Hardcoded actor ID in common events~~**: ~~Common Event 2 targets Actor 5 specifically.~~ **RESOLVED** — SD_LimbSystem.js uses dynamic actor targeting via `target.actorId()`.
 2. **Identical class parameter curves**: All 4 classes have the same HP/MP/ATK/DEF/MAT/MDF/AGI/LUK growth. Classes are not mechanically differentiated.
 3. **Unloaded plugin files**: 38 plugin `.js` files sit in `js/plugins/` but only 15 are registered in `plugins.js`. Several features documented as available (passive states, weapon-skill binding, victory aftermath, event location persistence, action sequences) are actually non-functional because their plugins are not loaded. This is NOT "loaded but unused" — they are completely unregistered.
 4. **Zero rewards on enemies**: All enemies give 0 EXP and 0 gold, making combat pointless for progression.
@@ -186,19 +210,22 @@ This document records all architectural decisions inferred from the project impl
 
 ## What Must Remain Stable
 
-1. **Variables 1-7**: Reserved for limb damage. Do not reassign.
-2. **Switch 1**: Reserved for limb initialization. Do not reassign.
+1. **Variables 1-7**: Reserved for limb damage (mirror sync). Do not reassign.
+2. **Switch 1**: Reserved for limb initialization (legacy). Do not reassign.
 3. **Skill Type 3 ("Rune")**: Reserved for the rune magic system.
-4. **State 11 ("Crippled")**: Reserved for limb damage consequences.
-5. **State 12 ("Royal Bloodline")**: Tied to Noble origin choice.
-6. **Actors 5-7**: The three playable protagonist variants.
-7. **Map006**: Character creation flow. Must remain the starting map.
-8. **Skill 7 ("Wait")**: Used as rune failure fallback. Must exist.
-9. **Common Events 1-2**: Limb damage system. Do not repurpose.
-10. **RuneSkills.js**: Do not modify the plugin source. Extend via notetags.
-11. **Quest 6 ("Arrival")**: The first quest, opened automatically after character creation.
-12. **The `<runes: X, Y>` notetag format**: Canonical way to define rune combinations.
-13. **plugins.js is the ONLY source of truth for active plugins**. Plugin `.js` files in `js/plugins/` directory do NOT indicate active status. Only entries in `plugins.js` are loaded at runtime.
+4. **State 11 ("Crippled")**: Reserved for limb damage consequences (traits: AGI-20, Hit 50%, DEF 65%).
+5. **States 14-17**: Reserved for limb status markers (Infected, Blood Loss, Maimed, Malformed). No game-logic traits.
+6. **State 12 ("Royal Bloodline")**: Tied to Noble origin choice.
+7. **Actors 5-7**: The three playable protagonist variants.
+8. **Map006**: Character creation flow. Must remain the starting map.
+9. **Skill 7 ("Wait")**: Used as rune failure fallback. Must exist.
+10. **Common Events 1-2**: Legacy limb system. Do not repurpose or delete.
+11. **RuneSkills.js**: Do not modify the plugin source. Extend via notetags.
+12. **SD_LimbSystem.js**: Core limb damage plugin. Do not modify RuneSkills.js from within it.
+13. **Quest 6 ("Arrival")**: The first quest, opened automatically after character creation.
+14. **The `<runes: X, Y>` notetag format**: Canonical way to define rune combinations.
+15. **plugins.js is the ONLY source of truth for active plugins**. Plugin `.js` files in `js/plugins/` directory do NOT indicate active status. Only entries in `plugins.js` are loaded at runtime.
+16. **`$gameSystem._limbData`**: Canonical storage for all limb system data. Auto-serialized via MV save system.
 
 ---
 

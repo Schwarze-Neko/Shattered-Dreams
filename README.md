@@ -7,7 +7,7 @@ A dark fantasy JRPG built in RPG Maker MV, set in the kingdom of Taldaria and th
 ### Core Systems
 - **Dialogue-based Character Builder** (game start): class selection (Knight/Hunter/Priest), origin, fighting style, moment of glory, motivation — each choice grants unique items, skills, and starting equipment. Currently fully implemented for Knight class only; Hunter and Priest paths are stubs (class swap only).
 - **Rune-based Magic System**: combinatorial spellcasting via RuneSkills plugin. Players combine elemental runes (Fire, Water, Earth, Air, Light, Darkness, Life, Death) with form runes (Sphere, Stream, Area) and effect runes (Protection, Contact) during battle to produce spells. 8 rune combinations currently defined.
-- **Limb Damage System**: tracks HP for 4 limbs (Left Arm, Right Arm, Left Leg, Right Leg) via game variables. When limb count drops below threshold, the "Crippled" state is applied (reduced agility, hit rate, defense). Managed through Common Events 1-2.
+- **Limb Damage System**: Plugin-driven (`SD_LimbSystem.js`) tracking hidden HP for 4 limbs per actor (Left Arm, Right Arm, Left Leg, Right Leg). Physical attacks deal simultaneous limb damage. Per-limb statuses: Infected (lethal timer), Blood Loss (stackable HP drain), Maimed (reduced limb maxHP), Malformed (random modifier). Destroyed limbs trigger permanent Crippled state (AGI/Hit/DEF penalties, equipment slot lock). Supports all actors dynamically. Out-of-combat regeneration. Enemy body-part system infrastructure (head-kill mechanic).
 - **Quest Journal**: 6 quests defined via YEP_QuestJournal (4 main quests with real content, 1 test quest, 1 arrival quest).
 - **TP renamed to "Hope"**: thematic resource.
 
@@ -38,7 +38,7 @@ A dark fantasy JRPG built in RPG Maker MV, set in the kingdom of Taldaria and th
 - **Hunter and Priest character builder paths** — only class swap implemented, no origin/style/glory/motivation choices.
 - **Enemy rewards** — all enemies currently give 0 EXP and 0 gold.
 - **Class stat differentiation** — all 4 classes share identical parameter curves.
-- **Limb damage integration** — functional in 5 of 8 troops via battle events (random damage 5-15 to random limb each turn). Missing from 3 troops. Hardcoded to actor ID 5. No player-side limb targeting UI. Limb HP shown as text message, not HUD element.
+- **Limb damage integration** — fully implemented via SD_LimbSystem.js plugin. Universal across all battles (no per-troop config needed). Supports all actors. Limb HP hidden from player (narrative messages only). No player-side limb targeting UI yet. Healing items (Antiseptic, Bandage, Splint) defined in spec but not yet added to Items.json.
 - **State 13 "Demon"** — exists with no traits (placeholder).
 - **States 14-20** — empty placeholder slots.
 - **Battle system mode** — configured as DTB (Default Turn Battle). ATB/CTB/STB plugin files exist in `js/plugins/` but are **not loaded** in `plugins.js`.
